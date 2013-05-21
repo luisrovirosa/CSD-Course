@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class CourseTest {
+	Course course = new Course("maths");
 
 	@Test
 	public void createSimpleClass() throws Exception {
-		Course course = new Course("maths");
 		assertEquals("maths", course.getName());
 	}
 
@@ -17,17 +17,21 @@ public class CourseTest {
 	// This test needs to be run with -Denv.college=Standford
 	@Test
 	public void collegeName() throws Exception {
-		Course course = new Course("maths");
 		assertEquals("Standford", course.getCollege());
 	}
 
 	// A Short course has length less than 2 hours
 	@Test
 	public void shortCourse() throws Exception {
-		Course course = new Course("maths");
-		course.start(System.nanoTime());
-		// sleepSeconds(15);
-		course.end(System.nanoTime() + 15 * 1_000_000_000L);
+		course.start();
+		course.setTimeProvider(new Proveedor() {
+			@Override
+			public long getTime() {
+				// TODO Auto-generated method stub
+				return super.getTime() + 1_000_000_000L * 15;
+			}
+		});
+		course.end();
 		assertTrue(course.isShort());
 		assertTrue(course.getDurationSeconds() > 10);
 		assertTrue(course.getDurationSeconds() < 20);
@@ -36,9 +40,15 @@ public class CourseTest {
 	// A long course has length greater than 2 hours
 	@Test
 	public void longCourse() throws Exception {
-		Course course = new Course("maths");
-		course.start(System.nanoTime());
-		course.end(System.nanoTime() + 2 * 3600 * 1_000_000_000L);
+		course.start();
+		course.setTimeProvider(new Proveedor() {
+			@Override
+			public long getTime() {
+				// TODO Auto-generated method stub
+				return super.getTime() + 1_000_000_000L * 3600 * 2 + 1;
+			}
+		});
+		course.end();
 		assertTrue(course.isLong());
 	}
 

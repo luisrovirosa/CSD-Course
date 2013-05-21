@@ -12,8 +12,11 @@ public class Course {
 
 	private long durationSeconds;
 
+	Proveedor proveedor;
+
 	public Course(String name) {
 		this.name = name;
+		proveedor = new Proveedor();
 	}
 
 	public String getName() {
@@ -25,18 +28,11 @@ public class Course {
 	}
 
 	public void start() {
-		start(System.nanoTime());
-	}
-
-	public void start(long _startTime) {
-		startTime = _startTime;
+		startTime = proveedor.getTime();
 	}
 
 	public void end() {
-		end(System.nanoTime());
-	}
-
-	public void end(long endTime) {
+		endTime = proveedor.getTime();
 		durationSeconds = (endTime - startTime) / NANOS_PER_SECONDS;
 	}
 
@@ -52,4 +48,7 @@ public class Course {
 		return durationSeconds;
 	}
 
+	public void setTimeProvider(Proveedor _proveedor) {
+		proveedor = _proveedor;
+	}
 }
