@@ -6,7 +6,7 @@ public class Course {
 
 	private static final long SECONDS_PER_HOUR = 3600;
 
-	private final String name;
+	private String name;
 
 	private long startTime, endTime;
 
@@ -14,9 +14,16 @@ public class Course {
 
 	Proveedor proveedor;
 
-	public Course(String name) {
+	private String college;
+
+	public Course(String college, String name) {
+		this.college = college;
 		this.name = name;
 		proveedor = new Proveedor();
+	}
+
+	public Course(String _name) {
+		new Course(System.getProperty("env.college"), _name);
 	}
 
 	public String getName() {
@@ -24,7 +31,7 @@ public class Course {
 	}
 
 	public String getCollege() {
-		return System.getProperty("env.college");
+		return college;
 	}
 
 	public void start() {

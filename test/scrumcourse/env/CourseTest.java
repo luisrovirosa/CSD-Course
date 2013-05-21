@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class CourseTest {
-	Course course = new Course("maths");
 
 	@Test
 	public void createSimpleClass() throws Exception {
+		Course course = new Course("maths");
 		assertEquals("maths", course.getName());
 	}
 
@@ -17,12 +17,16 @@ public class CourseTest {
 	// This test needs to be run with -Denv.college=Standford
 	@Test
 	public void collegeName() throws Exception {
+		Course course = new Course("maths");
 		assertEquals("Standford", course.getCollege());
+		Course courseBerkeley = new Course("Berkeley", "maths");
+		assertEquals("Berkeley", courseBerkeley.getCollege());
 	}
 
 	// A Short course has length less than 2 hours
 	@Test
 	public void shortCourse() throws Exception {
+		Course course = new Course("maths");
 		course.start();
 		course.setTimeProvider(new Proveedor() {
 			@Override
@@ -40,6 +44,7 @@ public class CourseTest {
 	// A long course has length greater than 2 hours
 	@Test
 	public void longCourse() throws Exception {
+		Course course = new Course("maths");
 		course.start();
 		course.setTimeProvider(new Proveedor() {
 			@Override
