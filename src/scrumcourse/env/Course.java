@@ -25,11 +25,18 @@ public class Course {
 	}
 
 	public void start() {
-		startTime = System.nanoTime();
+		start(System.nanoTime());
+	}
+
+	public void start(long _startTime) {
+		startTime = _startTime;
 	}
 
 	public void end() {
-		endTime = System.nanoTime();
+		end(System.nanoTime());
+	}
+
+	public void end(long endTime) {
 		durationSeconds = (endTime - startTime) / NANOS_PER_SECONDS;
 	}
 
